@@ -57,9 +57,11 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
+
 def encode_image(image_path):
     with open(image_path, "rb") as image_file:
         return base64.b64encode(image_file.read()).decode("utf-8")
+
 
 def analyze_combined_images(image_folder, prompt):
     combined_images = []
@@ -67,7 +69,8 @@ def analyze_combined_images(image_folder, prompt):
         if image_name.lower().endswith((".jpg", ".jpeg", ".png")):
             image_path = os.path.join(image_folder, image_name)
             base64_image = encode_image(image_path)
-            combined_images.append({"type": "image_url", "image_url": {"url": f"data:image/jpeg;base64,{base64_image}"}})
+            combined_images.append({"type": "image_url", "image_url": {
+                                   "url": f"data:image/jpeg;base64,{base64_image}"}})
 
     if not combined_images:
         return "No valid images found for analysis."
@@ -88,6 +91,7 @@ def analyze_combined_images(image_folder, prompt):
         max_tokens=1000,
     )
     return response.choices[0].message.content
+
 
 USER_PROMPT = """
 قم بدور مستشار هندسي محترف ومتخصص في تحليل ومراجعة التصاميم والرسومات الهندسية. مهمتك هي تقديم مراجعة دقيقة وشاملة استنادًا إلى الصور المقدمة، مع ضمان الامتثال للمعايير الهندسية المعتمدة. إذا تضمنت الصور نصوصًا أو تفاصيل معقدة، يمكنك تحليلها بناءً على وصف المستخدم أو النقاط التي يقدمها. استخدم المهارات التالية لتحليل الصور بفعالية:
@@ -138,9 +142,11 @@ if not api_key:
 
 image_folder = "images"
 if not os.path.exists(image_folder):
-    st.error("📁 لم يتم العثور على مجلد الصور. الرجاء إنشاء مجلد 'images' وإضافة الصور إليه.")
+    st.error(
+        "📁 لم يتم العثور على مجلد الصور. الرجاء إنشاء مجلد 'images' وإضافة الصور إليه.")
 else:
-    image_files = [f for f in os.listdir(image_folder) if f.lower().endswith((".jpg", ".jpeg", ".png"))]
+    image_files = [f for f in os.listdir(
+        image_folder) if f.lower().endswith((".jpg", ".jpeg", ".png"))]
     if not image_files:
         st.warning("🖼️ لم يتم العثور على صور في المجلد!")
     else:
@@ -163,7 +169,8 @@ else:
                 time.sleep(0.2)  # Adjust speed of the progress bar
                 my_bar.progress(percent_complete + 1, text=progress_text)
 
-            analysis_result = analyze_combined_images(image_folder, USER_PROMPT)
+            analysis_result = analyze_combined_images(
+                image_folder, USER_PROMPT)
             my_bar.empty()
 
             st.success("✅ تم تحليل المخططات بنجاح!")
