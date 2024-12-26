@@ -153,12 +153,12 @@ else:
         st.subheader("📁 المخططات الحالية:")
 
         # Organize images in rows and columns
-        columns = st.columns(4)
+        columns = st.columns(2)
         for i, image_name in enumerate(image_files):
             image_path = os.path.join(image_folder, image_name)
             image = Image.open(image_path)
             with columns[i % len(columns)]:
-                st.image(image, caption=image_name, use_container_width=True)
+                st.image(image, caption=image_name)
 
         if st.button("🔍 تحليل المخططات ! "):
             progress_text = "🔄 جاري تحليل المخططات..."
