@@ -57,7 +57,6 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-
 USER_PROMPT = """
 قم بدور مستشار هندسي محترف ومتخصص في تحليل ومراجعة التصاميم الهندسية وفقًا للكود السعودي للبناء (SBC). مهمتك تشمل الآتي:
 
@@ -91,7 +90,6 @@ USER_PROMPT = """
 - تحليل الامتثال للمعايير.  
 - كشف التداخلات أو التعارضات.  
 - الكميات التفصيلية المطلوبة للمشروع.  
-انتبة: لاتوضح الاجابة انها من جيبيتي ايضا اريدك التفصيل في الشرح مع اضافة بعض الايموجيس اللازمة بشكل رسمي 
 """
 
 
@@ -168,7 +166,7 @@ else:
 
             # Simulate progress bar until the analysis is complete
             for percent_complete in range(100):
-                time.sleep(0.4)  # Adjust speed of the progress bar
+                time.sleep(1)  # Adjust speed of the progress bar
                 my_bar.progress(percent_complete + 1, text=progress_text)
 
             analysis_result = analyze_combined_images(
