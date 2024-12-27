@@ -166,7 +166,7 @@ else:
 
             # Simulate progress bar until the analysis is complete
             for percent_complete in range(100):
-                time.sleep(0.2)  # Adjust speed of the progress bar
+                time.sleep(0.4)  # Adjust speed of the progress bar
                 my_bar.progress(percent_complete + 1, text=progress_text)
 
             analysis_result = analyze_combined_images(
