@@ -163,7 +163,6 @@ else:
                     <p>{analysis_result}</p>
                 </div>
             """, unsafe_allow_html=True)
-i want remove st.progress and replace it with spinner with array apeasr while spining add 3 apprpiate texts shortest from my topic
 
 st.markdown("---")
 st.markdown("""
