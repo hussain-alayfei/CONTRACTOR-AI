@@ -5,7 +5,6 @@ from PIL import Image
 from dotenv import load_dotenv
 import streamlit as st
 import random
-import time
 
 st.set_page_config(
     page_title="عقار",
@@ -179,12 +178,6 @@ else:
         if st.button("🔍 تحليل المخططات ! "):
             # List of analysis status messages
             status_messages = [
-                "🔄 جاري التحليل...",
-                time.sleep(10)
-                "🔍 جاري مطابقة المعايير...",
-                time.sleep(10)
-                "📊 جاري حساب الكميات...",
-                time.sleep(10)
                 "📝 جاري كتابة التقرير..."
             ]
 
