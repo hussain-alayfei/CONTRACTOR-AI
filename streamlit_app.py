@@ -5,6 +5,7 @@ from PIL import Image
 from dotenv import load_dotenv
 import streamlit as st
 import random
+import time
 
 st.set_page_config(
     page_title="عقار",
