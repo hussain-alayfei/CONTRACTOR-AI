@@ -176,23 +176,51 @@ else:
                 st.image(image, caption=image_name, use_container_width=True)
 
         if st.button("🔍 تحليل المخططات ! "):
-            progress_text = "🔄 جاري تحليل المخططات..."
-            my_bar = st.progress(0, text=progress_text)
+            # List of analysis status messages
+            status_messages = [
+                "🔄 جاري التحليل...",
+                "🔍 جاري مطابقة المعايير...",
+                "📊 جاري حساب الكميات...",
+                "📝 جاري كتابة التقرير..."
+            ]
 
-            # Simulate progress bar until the analysis is complete
-            for percent_complete in range(100):
-                time.sleep(0.4)  # Adjust speed of the progress bar
-                my_bar.progress(percent_complete + 1, text=progress_text)
+            status_placeholder = st.empty()
+
+            # Cycle through status messages
+            for _ in range(3):  # Cycle through messages 3 times
+                for message in status_messages:
+                    status_placeholder.markdown(
+                        f"<h3 style='text-align: center;'>{message}</h3>",
+                        unsafe_allow_html=True
+                    )
+                    time.sleep(0.8)
 
             analysis_result = analyze_combined_images(
                 image_folder, USER_PROMPT)
-            my_bar.empty()
+            status_placeholder.empty()
 
             st.success("✅ تم تحليل المخططات بنجاح!")
-            st.markdown("### 📝 نتيجة التحليل:")
+
+            # Centered analysis title and result
+            st.markdown("""
+                <h2 style='text-align: center; color: #f39c12; margin-bottom: 1.5rem;'>
+                    📝 نتيجة التحليل
+                </h2>
+            """, unsafe_allow_html=True)
+
             st.markdown(f"""
-                <div class='analysis-results'>
-                    <p>{analysis_result}</p>
+                <div style='
+                    background-color: #34495e;
+                    padding: 2rem;
+                    border-radius: 15px;
+                    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+                    margin: 0 auto;
+                    max-width: 800px;
+                    text-align: right;
+                    direction: rtl;
+                    color: #ecf0f1;
+                '>
+                    <p style='font-size: 1.1rem; line-height: 1.6;'>{analysis_result}</p>
                 </div>
             """, unsafe_allow_html=True)
 
