@@ -158,7 +158,7 @@ else:
             image_path = os.path.join(image_folder, image_name)
             image = Image.open(image_path)
             with columns[i % len(columns)]:
-                st.image(image, caption=image_name)
+                st.image(image, caption=image_name, use_container_width=True)
 
         if st.button("🔍 تحليل المخططات ! "):
             progress_text = "🔄 جاري تحليل المخططات..."
