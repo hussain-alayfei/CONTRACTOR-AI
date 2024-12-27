@@ -58,9 +58,11 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
+
 def encode_image(image_path):
     with open(image_path, "rb") as image_file:
         return base64.b64encode(image_file.read()).decode("utf-8")
+
 
 def analyze_combined_images(image_folder, prompt):
     combined_images = []
@@ -68,7 +70,8 @@ def analyze_combined_images(image_folder, prompt):
         if image_name.lower().endswith((".jpg", ".jpeg", ".png")):
             image_path = os.path.join(image_folder, image_name)
             base64_image = encode_image(image_path)
-            combined_images.append({"type": "image_url", "image_url": {"url": f"data:image/jpeg;base64,{base64_image}"}})
+            combined_images.append({"type": "image_url", "image_url": {
+                                   "url": f"data:image/jpeg;base64,{base64_image}"}})
 
     if not combined_images:
         return "No valid images found for analysis."
@@ -90,6 +93,7 @@ def analyze_combined_images(image_folder, prompt):
     )
     return response.choices[0].message.content
 
+
 USER_PROMPT = """
 قم بدور مستشار هندسي محترف ومتخصص في تحليل ومراجعة التصاميم الهندسية وفقًا للكود السعودي للبناء (SBC). مهمتك تشمل الآتي:
 
@@ -105,7 +109,17 @@ USER_PROMPT = """
 - إجراء تحليل كشف تصادم (Clash Detection) لتحديد التعارضات بين الأنظمة المختلفة (إنشائي، كهربائي، صحي).  
 - الإبلاغ عن أي اختلافات في الأبعاد، المساحات، أو الارتفاعات بين المخططات.
 
-#### 3. إعداد تقرير شامل:
+#### 3. إعداد  جدول شامل: 
+انشئ جدول مثل هذا 
+البند,الكمية المقدرة,الوحدة
+حديد التسليح للأعمدة,15 طن تقريباً,طن
+خرسانة الأعمدة,50 متر مكعب,متر مكعب
+حديد التسليح للقواعد,10 طن تقريباً,طن
+خرسانة القواعد,30 متر مكعب,متر مكعب
+أنابيب الصرف الصحي,120 متر,متر
+مواد تصريف مياه الأمطار,50 متر (مواسير + منافذ تصريف),متر
+
+
 - في حال عدم وجود مشاكل، قم بتقديم تقرير يتضمن الكميات المطلوبة للمشروع:
   - كميات الحديد (التسليح).  
   - كميات الخرسانة للقواعد والأعمدة.  
@@ -123,9 +137,13 @@ USER_PROMPT = """
 - تحليل الامتثال للمعايير.  
 - كشف التداخلات أو التعارضات.  
 - الكميات التفصيلية المطلوبة للمشروع.  
+ملاحظات :
+- لا اريد منه ان يقترح لي تطبيقات اخرى اريد فقط تحليل هذي البيانات وتقديم اجابة ممتازة
+- اريد اضافة تنسيقات للنص في صيغة rmarks 
+- لا اريد ان يقول لا استطيع 
+
+
 """
-
-
 
 
 st.markdown("""
@@ -140,9 +158,11 @@ if not api_key:
     st.stop()
 image_folder = "images"
 if not os.path.exists(image_folder):
-    st.error("📁 لم يتم العثور على مجلد الصور. الرجاء إنشاء مجلد 'images' وإضافة الصور إليه.")
+    st.error(
+        "📁 لم يتم العثور على مجلد الصور. الرجاء إنشاء مجلد 'images' وإضافة الصور إليه.")
 else:
-    image_files = [f for f in os.listdir(image_folder) if f.lower().endswith((".jpg", ".jpeg", ".png"))]
+    image_files = [f for f in os.listdir(
+        image_folder) if f.lower().endswith((".jpg", ".jpeg", ".png"))]
     if not image_files:
         st.warning("🖼️ لم يتم العثور على صور في المجلد!")
     else:
@@ -165,7 +185,8 @@ else:
                 time.sleep(0.4)  # Adjust speed of the progress bar
                 my_bar.progress(percent_complete + 1, text=progress_text)
 
-            analysis_result = analyze_combined_images(image_folder, USER_PROMPT)
+            analysis_result = analyze_combined_images(
+                image_folder, USER_PROMPT)
             my_bar.empty()
 
             st.success("✅ تم تحليل المخططات بنجاح!")
