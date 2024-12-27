@@ -1,6 +1,5 @@
 # 🚧 CONTRACTOR.AI
 
-**🔢 موادك بحساب، وتكلفتك بامتياز!**  
 An AI-powered tool for analyzing engineering drawings, ensuring SBC compliance, and estimating material quantities for construction projects.
 
 ### ✨ Key Capabilities:
